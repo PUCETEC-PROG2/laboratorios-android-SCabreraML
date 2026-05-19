@@ -19,50 +19,62 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import ec.edu.puce.githubclient.models.GithubUser
+import ec.edu.puce.githubclient.models.Repository
+import java.security.acl.Owner
 
 @Composable
 fun RepoItem(
-    name: String,
-    avatarImg: String,
-    description: String,
-    language: String
+    repository: Repository
 ) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(all = 8.dp)
+            .padding(8.dp)
     ) {
-        Row (
+
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding( all = 16.dp)
+                .padding(16.dp)
         ) {
-            AsyncImage(
-                model = avatarImg,
-                contentDescription = "Imagen de $name",
-                modifier = Modifier.size( size = 60.dp),
-                contentScale = ContentScale.Crop
 
+            AsyncImage(
+                model = repository.owner.avatarUrl,
+                contentDescription = "Imagen de ${repository.name}",
+                modifier = Modifier.size(60.dp),
+                contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.width( width = 16.dp))
+
+            Spacer(modifier = Modifier.width(16.dp))
+
             Column {
+
                 Text(
-                    text = name,
+                    text = repository.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(modifier = Modifier.height( height = 4.dp))
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 3
-                )
-                Spacer(modifier = Modifier.height( height = 4.dp))
-                Text(
-                    text = language,
-                    style = MaterialTheme.typography.labelSmall
-                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                repository.description?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 3
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                repository.language?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.labelSmall
+                    )
+                }
             }
         }
     }
@@ -71,11 +83,18 @@ fun RepoItem(
 @Preview(showBackground = true)
 @Composable
 fun RepoItemPreview() {
-    RepoItem(
-        name = "Repositorio de Sebastian",
-        avatarImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIKQOZPpk7J8Zy72VMx4HTBowLyJtsRaQ3rw&s",
-        description = "Proyecto de Python de Sebastian",
-        language = "PythoN"
 
+    val repository = Repository(
+        id = "12345",
+        name = "Repositorio Django",
+        description = "Descripcion",
+        language = "Python",
+        owner = GithubUser(
+            id = "1234",
+            login = "smcabreral",
+            avatarUrl = "http"
+        )
     )
+
+    RepoItem(repository = repository)
 }
