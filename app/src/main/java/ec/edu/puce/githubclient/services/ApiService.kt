@@ -10,8 +10,8 @@ interface ApiServices {
     suspend fun getRepositories(
         @Query( value =  "affiliation") affiliation: String = "owner",
         @Query( value = "sort") sort: String = "created",
-        @Query( value = "direction") direction: String = "desc"
-
+        @Query( value = "direction") direction: String = "desc",
+        @Query( value = "per_page") perPage: Int = 100
     ): List<Repository>
 
 }
