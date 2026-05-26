@@ -1,17 +1,24 @@
 package ec.edu.puce.githubclient.services
 
 import ec.edu.puce.githubclient.models.Repository
+import ec.edu.puce.githubclient.models.RepositoryPayload
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiServices {
 
     @GET("/user/repos")
     suspend fun getRepositories(
-        @Query( value =  "affiliation") affiliation: String = "owner",
-        @Query( value = "sort") sort: String = "created",
-        @Query( value = "direction") direction: String = "desc",
-        @Query( value = "per_page") perPage: Int = 100
+        @Query("affiliation") affiliation: String = "owner",
+        @Query("sort") sort: String = "created",
+        @Query("direction") direction: String = "desc",
+        @Query("per_page") perPage: Int = 100
     ): List<Repository>
 
+    @POST("/user/repos")
+    suspend fun createRepository(
+        @Body repository: RepositoryPayload
+    ): Repository
 }
