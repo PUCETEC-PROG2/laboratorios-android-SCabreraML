@@ -38,7 +38,6 @@ fun RepoList(
 
     Scaffold(
         floatingActionButton = {
-            if (isLoading && errorMsg == null) {
                 FloatingActionButton(
                     onClick = onNavigateToForm,
                     shape = CircleShape,
@@ -49,7 +48,6 @@ fun RepoList(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Añadir repositorio"
                     )
-                }
             }
         }
     ) { paddingValues ->
