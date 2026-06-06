@@ -48,7 +48,7 @@ class RepoListViewModel: ViewModel (){
             try {
 
                 RetrofitClient.apiServices.deleteRepository(
-                    owner = "smcabreral",
+                    owner = "SCabreraML",
                     repo = repoName
                 )
 
@@ -70,7 +70,7 @@ class RepoListViewModel: ViewModel (){
             try {
 
                 RetrofitClient.apiServices.updateRepository(
-                    owner = "smcabreral",
+                    owner = "SCabreraML",
                     repo = repoName,
                     repository = RepositoryPayload(
                         name = newName,
